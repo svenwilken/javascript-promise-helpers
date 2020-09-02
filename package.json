@@ -1,0 +1,20 @@
+{
+  "name": "promise_helpers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest js",
+    "build": "npx tsc --outDir dist",
+    "build-watch": "npx tsc --watch --outDir dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.3",
+    "jest": "^26.4.2",
+    "typescript": "^4.0.2"
+  }
+}
