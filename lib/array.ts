@@ -104,7 +104,7 @@ export const reduceP = async (
 export const reduceRightP = async (
   array: any[],
   f: (prev: any, current: any, index: number) => Promise<any>,
-  initialValue: any
+  initialValue?: any
 ) => {
   array = array.concat(); // shallow copy of array
   return reduceP(array.reverse(), f, initialValue);
