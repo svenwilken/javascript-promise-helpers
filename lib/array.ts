@@ -12,20 +12,50 @@ export const forEachP = async (
   await mapP(array, f);
 };
 
-export const someP = async (
+export const somePP = async (
+  // Paralell execution
   array: any[],
   f: (a: any, index: number) => Promise<boolean>
 ) => {
   const res: boolean[] = await mapP(array, f);
   return res.some((x: boolean) => x);
-};  
+};
 
-export const everyP = async (
+export const somePS = async (
+  // Sequential execution
+  array: any[],
+  f: (a: any, index: number) => Promise<boolean>
+) => {
+  let index = 0;
+  for (const element of array) {
+    if (await f(element, index)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const everyPP = async (
+  // Paralell execution
   array: any[],
   f: (a: any, index: number) => Promise<boolean>
 ) => {
   const res: boolean[] = await mapP(array, f);
   return res.every((x: boolean) => x);
+};
+
+export const everyPS = async (
+  // Sequential execution
+  array: any[],
+  f: (a: any, index: number) => Promise<boolean>
+) => {
+  let index = 0;
+  for (const element of array) {
+    if (!(await f(element, index))) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const filterP = async (
@@ -36,26 +66,26 @@ export const filterP = async (
   return array.filter((_value: any, index: number) => res[index]);
 };
 
-export const indexOfP = async (
+export const findPP = async (
+  array: any[],
+  f: (a: any, index: number) => Promise<boolean>
+) => {
+  const result: boolean[] = await mapP(array, f);
+  const index = result.indexOf(true);
+  return index >= 0 ? index : null;
+};
+
+export const findPS = async (
   array: any[],
   f: (a: any, index: number) => Promise<boolean>
 ) => {
   let index = 0;
   for (const element of array) {
-    if ((await f(element, index)) === true) {
-      return index;
+    if (await f(element, index)) {
+      return element;
     }
-    index++;
   }
-  return -1;
-}
-
-export const findP = async (
-  array: any[],
-  f: (a: any, index: number) => Promise<boolean>
-) => {
-  const index = await indexOfP(array, f);
-  return index > -1 ? array[index] : null;
+  return null;
 };
 
 export const reduceP = async (
@@ -76,6 +106,6 @@ export const reduceRightP = async (
   f: (prev: any, current: any, index: number) => Promise<any>,
   initialValue: any
 ) => {
-    array = array.concat(); // shallow copy of array
-    return reduceP(array.reverse(), f, initialValue);
+  array = array.concat(); // shallow copy of array
+  return reduceP(array.reverse(), f, initialValue);
 };
