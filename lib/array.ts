@@ -72,7 +72,7 @@ export const findPP = async (
 ) => {
   const result: boolean[] = await mapP(array, f);
   const index = result.indexOf(true);
-  return index >= 0 ? index : null;
+  return index >= 0 ? array[index] : null;
 };
 
 export const findPS = async (
