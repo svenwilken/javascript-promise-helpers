@@ -1,6 +1,7 @@
 import {
   mapP,
-  forEachP,
+  forEachPP,
+  forEachPS,
   somePP,
   somePS,
   everyPP,
@@ -20,16 +21,35 @@ describe("Promise Helper Array Functions", () => {
     });
   });
 
-  describe("forEachP", () => {
+  describe("forEachPP", () => {
     it("case 1", async () => {
       const array = [{ n: 1 }, { n: 2 }, { n: 3 }];
-      await forEachP(array, async (a) => (a.n = a.n + 1));
+      await forEachPP(array, async (a) => (a.n = a.n + 1));
       expect(array).toEqual([{ n: 2 }, { n: 3 }, { n: 4 }]);
     });
 
     it("case 2", async () => {
       const array = [{ n: 1 }, { n: 2 }, { n: 3 }];
-      await forEachP(array, async (a) => (a.m = a.n ** 2));
+      await forEachPP(array, async (a) => (a.m = a.n ** 2));
+      expect(array).toEqual([
+        { n: 1, m: 1 },
+        { n: 2, m: 4 },
+        { n: 3, m: 9 },
+      ]);
+    });
+  });
+
+
+  describe("forEachPS", () => {
+    it("case 1", async () => {
+      const array = [{ n: 1 }, { n: 2 }, { n: 3 }];
+      await forEachPS(array, async (a) => (a.n = a.n + 1));
+      expect(array).toEqual([{ n: 2 }, { n: 3 }, { n: 4 }]);
+    });
+
+    it("case 2", async () => {
+      const array = [{ n: 1 }, { n: 2 }, { n: 3 }];
+      await forEachPS(array, async (a) => (a.m = a.n ** 2));
       expect(array).toEqual([
         { n: 1, m: 1 },
         { n: 2, m: 4 },

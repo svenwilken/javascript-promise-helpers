@@ -5,11 +5,21 @@ export const mapP = (
   return Promise.all(array.map(f));
 };
 
-export const forEachP = async (
+export const forEachPP = async (
   array: any[],
   f: (a: any, index: number) => Promise<any>
 ) => {
   await mapP(array, f);
+};
+
+export const forEachPS = async (
+  array: any[],
+  f: (a: any, index: number) => Promise<any>
+) => {
+  let index = 0;
+  for (const element of array) {
+    await f(element, index++);
+  }
 };
 
 export const somePP = async (
